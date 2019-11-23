@@ -4,6 +4,7 @@ download:
 	@rsync -v -r -e ssh \
 		--exclude out/ \
 		--exclude data/ \
+		--exclude tmp/ \
 		--exclude __pycache__/ \
 		nct01011@dt01.bsc.es:/home/nct01/nct01011/pretrained-dogs-classification/* .
 
@@ -14,6 +15,7 @@ upload:
 		--exclude notebooks/ \
 		--exclude pictures/ \
 		--exclude .idea/ \
+		--exclude tmp/ \
 		./ nct01011@dt01.bsc.es:/home/nct01/nct01011/pretrained-dogs-classification
 
 queue-task:
