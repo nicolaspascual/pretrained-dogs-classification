@@ -337,7 +337,7 @@ def _obtain_input_shape(input_shape,
                              'Got `input_shape=' + str(input_shape) + '`')
     return input_shape
 
-def load_VGG16_places(fc_layers=True):
+def load_VGG16_places(fc_layers=False):
     img_width, img_height = 224, 300
     model = VGG16_Places365(include_top=fc_layers, weights='places',
                             input_shape=(img_width, img_height, 3))

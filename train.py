@@ -85,12 +85,12 @@ history = model_final.fit_generator(
     callbacks=[early])  # ,checkpoint])
 
 STEP_SIZE_TEST=test_generator.n//test_generator.batch_size
-score = model.evaluate_generator(generator=test_generator, steps=STEP_SIZE_TEST)
+score = model_final.evaluate_generator(generator=test_generator, steps=STEP_SIZE_TEST)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 
 
 plot_accuracy(history, path.join('./result/', out_file_name))
 plot_loss(history, path.join('./result/', out_file_name))
-save_model(model, path.join('./out/', out_file_name))
+save_model(model_final, path.join('./out/', out_file_name))
 save_history(history, path.join('./out/', out_file_name))
