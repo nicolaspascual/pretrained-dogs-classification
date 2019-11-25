@@ -32,7 +32,7 @@ batch_size = 64
 epochs = 120
 
 # Freeze the layers which you don't want to train. VGG16 has 18 conv and pooling layers 
-for layer in model.layers[:11]: # CAHNGE
+for layer in model.layers[7:]: # CAHNGE
     layer.trainable = False
 # 0 input_layer.InputLayer
 # 1 convolutional.Conv2D
