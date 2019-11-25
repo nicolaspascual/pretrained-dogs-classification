@@ -1,0 +1,4 @@
+base
+epochs 120
+lr 0.0005
+for layer in model.layers[:7]:

@@ -1,0 +1,3 @@
+base
+epochs 120
+lr 0.005

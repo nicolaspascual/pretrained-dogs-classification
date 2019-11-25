@@ -3,7 +3,7 @@ import sys
 from os import path
 
 import tensorflow as tf
-from keras.optimizers import SGD
+from keras import optimizers
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.layers import Dense, Dropout, Flatten, GlobalAveragePooling2D
 from keras.models import Model, Sequential
@@ -29,10 +29,10 @@ model, img_width, img_height = load_VGG16_places(fc_layers=False)
 
 
 batch_size = 64
-epochs = 120
+epochs = 30
 
 # Freeze the layers which you don't want to train. VGG16 has 18 conv and pooling layers 
-for layer in model.layers[:11]: # CAHNGE
+for layer in model.layers[:18]:
     layer.trainable = False
 # 0 input_layer.InputLayer
 # 1 convolutional.Conv2D
@@ -65,7 +65,7 @@ predictions = Dense(120, activation="softmax")(x)
 model_final = Model(inputs=model.input, output=predictions)
 
 # compile the model 
-model_final.compile(loss="categorical_crossentropy", optimizer=SGD(lr=0.0005, momentum=0.9),
+model_final.compile(loss="categorical_crossentropy", optimizer=optimizers.SGD(lr=0.0005, momentum=0.9),
                     metrics=["accuracy"])
 
 # Initiate the train and test generators with data augumentation 
@@ -85,12 +85,12 @@ history = model_final.fit_generator(
     callbacks=[early])  # ,checkpoint])
 
 STEP_SIZE_TEST=test_generator.n//test_generator.batch_size
-score = model_final.evaluate_generator(generator=test_generator, steps=STEP_SIZE_TEST)
+score = model.evaluate_generator(generator=test_generator, steps=STEP_SIZE_TEST)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 
 
 plot_accuracy(history, path.join('./result/', out_file_name))
 plot_loss(history, path.join('./result/', out_file_name))
-save_model(model_final, path.join('./out/', out_file_name))
+save_model(model, path.join('./out/', out_file_name))
 save_history(history, path.join('./out/', out_file_name))
