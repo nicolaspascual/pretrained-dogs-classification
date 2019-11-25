@@ -1,0 +1,3 @@
+base
+epochs 120
+model.layers[:11]
